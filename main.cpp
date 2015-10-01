@@ -1,4 +1,5 @@
 #include "LinkedList.h"
+#include "Stack.h"
 
 #include <iostream>
 using namespace std;
@@ -24,8 +25,33 @@ void TestLinkedList()
 	cout << "Found the element " << List.FindElement(1)->data << endl;
 }
 
+void TestStack()
+{
+	const int size = 5;
+	Stack<int> stack;
+	//test dequeueing from an empty stack
+	if( stack.Dequeue() != NULL )
+		cout << "Dequeuing from an empty stack failed" << endl;
+	else
+		cout << "Dequeuing form an empty stack passed" << endl;
+	for(int i = 0; i < size; i++ )
+		stack.Enqueue(i);
+	for(int i = 0; i < size; i++ )
+	{
+		Node<int>* node = stack.Dequeue();
+		if( node == NULL )
+		{
+			cout << "Somehow got an empty node" << endl;
+			break;
+		}
+		cout << "The " << i << "th elemnt of the stack is: " << node->data << endl;
+		delete node;
+	}
+}
+
 int main()
 {
-	TestLinkedList();
+	//TestLinkedList();
+	TestStack();
 	return 0;
 }

@@ -26,9 +26,13 @@
 		void AddElement( Data Value );
 		//Removes the specified element from the list
 		void RemoveElement( Data Value );
+		//Pops the last element of the list
+		//This function could take O(n) time, so it would be better to use a doubly linked list if this function is needed
+		Node<Data>* PopTail();
 		//Returns the ith element in the list
 		Node<Data>* FindElement( int i );
 		void PrintList();
+		bool IsEmpty();
 	};
 	
 	
@@ -131,6 +135,36 @@
 			Current = Current->next;
 		}
 		cout << endl;
+	}
+	
+	template<class Data>
+	bool LinkedList<Data>::IsEmpty()
+	{
+		return head == NULL;
+	}
+	
+	template<class Data>
+	Node<Data>* LinkedList<Data>::PopTail()
+	{
+		Node<Data>* ReturnElement = NULL;
+		if( head == NULL )
+		{
+			return NULL;
+		}
+		else if( tail == NULL )
+		{
+			ReturnElement = head;
+			head = NULL;
+		}
+		else
+		{
+			ReturnElement = tail;
+			Node<Data>* Temp = head;
+			while( Temp != NULL && Temp->next != tail )
+				Temp = Temp->next;
+			tail = Temp == head ? NULL : Temp;
+		}
+		return ReturnElement;
 	}
 	
 #endif
