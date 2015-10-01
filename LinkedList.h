@@ -27,7 +27,7 @@
 		//Removes the specified element from the list
 		void RemoveElement( Data Value );
 		//Returns the ith element in the list
-		LinkedList* FindElement( int i );
+		Node<Data>* FindElement( int i );
 		void PrintList();
 	};
 	
@@ -67,13 +67,57 @@
 	template<class Data>
 	void LinkedList<Data>::RemoveElement( Data Value )
 	{
+		Node<Data>* Current = head;
+		Node<Data>* Prev = NULL;
+		while( Current != NULL )
+		{
+			if( Current->data == Value )
+			{
+				if( Current == head )
+				{
+					head = head->next;
+				}
+				else if( Current == tail )
+				{
+					if( Prev == head )
+					{
+						tail = NULL;
+						head->next = tail;
+					}
+					else
+					{
+						tail = Prev;
+						tail->next = NULL;
+					}
+				}
+				else
+				{
+					Prev->next = Current->next;
+				}
+				delete Current;
+				return;
+			}
+			Prev = Current;
+			Current = Current->next;
+		}
+		cout << "Could not find the specified element " << Value << endl;
 	}
 
 
 	//Returns the ith element in the list
 	template<class Data>
-	LinkedList<Data>* LinkedList<Data>::FindElement( int i )
+	Node<Data>* LinkedList<Data>::FindElement( int i )
 	{
+		Node<Data>* Current = head;
+		int count = 0;
+		while( Current != NULL )
+		{
+			if( count == i )
+				return Current;
+			Current = Current->next;
+			count++;
+		}
+		cout << "The " << i << "th element does not exist" << endl;
 		return NULL;
 	}
 
@@ -86,6 +130,7 @@
 			cout << Current->data << " ";
 			Current = Current->next;
 		}
+		cout << endl;
 	}
 	
 #endif
