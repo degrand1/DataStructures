@@ -1,7 +1,9 @@
-#include "LinkedList.h"
+#include "CCI_ArraysAndStrings.h"
 #include "DoublyLinkedList.h"
-#include "Stack.h"
+#include "LinkedList.h"
 #include "Queue.h"
+#include "Stack.h"
+
 
 #include <iostream>
 using namespace std;
@@ -118,7 +120,8 @@ int main()
 	//TestLinkedList();
 	//TestDoublyLinkedList();
 	//TestStack();
-	TestQueue();
+	//TestQueue();
+	CCI_Test_ArraysAndStrings();
 	system("pause");
 	return 0;
 }
