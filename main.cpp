@@ -1,6 +1,7 @@
 #include "LinkedList.h"
 #include "DoublyLinkedList.h"
 #include "Stack.h"
+#include "Queue.h"
 
 #include <iostream>
 using namespace std;
@@ -77,7 +78,31 @@ void TestStack()
 		stack.Enqueue(i);
 	for(int i = 0; i < size; i++ )
 	{
-		Node<int>* node = stack.Dequeue();
+		DoublyLinkedNode<int>* node = stack.Dequeue();
+		if( node == NULL )
+		{
+			cout << "Somehow got an empty node" << endl;
+			break;
+		}
+		cout << "The " << i << "th elemnt of the stack is: " << node->data << endl;
+		delete node;
+	}
+}
+
+void TestQueue()
+{
+	const int size = 5;
+	Queue<int> queue;
+	//test dequeueing from an empty queue
+	if( queue.Dequeue() != NULL )
+		cout << "Dequeuing from an empty queue failed" << endl;
+	else
+		cout << "Dequeuing form an empty queue passed" << endl;
+	for(int i = 0; i < size; i++ )
+		queue.Enqueue(i);
+	for(int i = 0; i < size; i++ )
+	{
+		Node<int>* node = queue.Dequeue();
 		if( node == NULL )
 		{
 			cout << "Somehow got an empty node" << endl;
@@ -91,8 +116,9 @@ void TestStack()
 int main()
 {
 	//TestLinkedList();
-	TestDoublyLinkedList();
+	//TestDoublyLinkedList();
 	//TestStack();
+	TestQueue();
 	system("pause");
 	return 0;
 }

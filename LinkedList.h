@@ -29,6 +29,8 @@
 		//Pops the last element of the list
 		//This function could take O(n) time, so it would be better to use a doubly linked list if this function is needed
 		Node<Data>* PopTail();
+		//Pops the first element of the list
+		Node<Data>* PopHead();
 		//Returns the ith element in the list
 		Node<Data>* FindElement( int i );
 		void PrintList();
@@ -155,10 +157,11 @@
 		{
 			return NULL;
 		}
-		else if( tail == NULL )
+		else if( tail == head )
 		{
 			ReturnElement = head;
 			head = NULL;
+			tail = NULL;
 		}
 		else
 		{
@@ -171,4 +174,26 @@
 		return ReturnElement;
 	}
 	
+	template<class Data>
+	Node<Data>* LinkedList<Data>::PopHead()
+	{
+		Node<Data>* ReturnElement = NULL;
+		if( head == NULL )
+		{
+			return NULL;
+		}
+		else if( head == tail )
+		{
+			ReturnElement = head;
+			head = NULL;
+			tail = NULL;
+		}
+		else
+		{
+			ReturnElement = head;
+			head = head->next;
+		}
+		return ReturnElement;
+	}
+
 #endif

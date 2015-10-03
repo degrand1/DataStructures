@@ -1,15 +1,15 @@
 #ifndef STACK_H
 #define STACK_H
-	#include "LinkedList.h"
+	#include "DoublyLinkedList.h"
 	template<class Data>
 	class Stack {
 	public:
-		Stack(){ List = new LinkedList<Data>(); }
+		Stack(){ List = new DoublyLinkedList<Data>(); }
 		~Stack();
-		Node<Data>* Dequeue();
+		DoublyLinkedNode<Data>* Dequeue();
 		void Enqueue( Data Value );
 	private:
-		LinkedList<Data>* List;
+		DoublyLinkedList<Data>* List;
 	};
 	
 	template<class Data>
@@ -28,7 +28,7 @@
 	}
 	
 	template<class Data>
-	Node<Data>* Stack<Data>::Dequeue()
+	DoublyLinkedNode<Data>* Stack<Data>::Dequeue()
 	{
 		return List->IsEmpty() ? NULL : List->PopTail();
 	}
