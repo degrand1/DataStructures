@@ -1,10 +1,10 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 	#include <stddef.h>
-	
+
 	#include <iostream>
 	using namespace std;
-	
+
 	template<class Data>
 	class Node {
 	public:
@@ -54,8 +54,9 @@
 		if(head == NULL)
 		{
 			head = NewNode;
+			tail = NewNode;
 		}
-		else if(tail == NULL)
+		else if(tail == head)
 		{
 			tail = NewNode;
 			head->next = tail;
@@ -79,14 +80,17 @@
 			{
 				if( Current == head )
 				{
+					//Only one element in the list
+					if(tail == head )
+						tail = tail->next;
 					head = head->next;
 				}
 				else if( Current == tail )
 				{
 					if( Prev == head )
 					{
-						tail = NULL;
-						head->next = tail;
+						tail = head;
+						head->next = NULL;
 					}
 					else
 					{
