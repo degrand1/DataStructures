@@ -1,4 +1,5 @@
 #include "CCI_ArraysAndStrings.h"
+#include "CCI_LinkedLists.h"
 #include "DoublyLinkedList.h"
 #include "LinkedList.h"
 #include "Queue.h"
@@ -27,6 +28,51 @@ void TestLinkedList()
 	List.RemoveElement(2);
 	List.PrintList();
 	cout << "Found the element " << List.FindElement(1)->data << endl;
+	for(int i = 0; i < size; i++)
+	{
+		List.AddElement(1);
+		List.AddElement(3);
+	}
+	List.PrintList();
+	cout << "Removing duplicates via a buffer" << endl;
+	List.RemoveDuplicatesUsingBuffer();
+	List.PrintList();
+	for(int i = 0; i < size; i++)
+	{
+		List.AddElement(1);
+		List.AddElement(3);
+	}
+	cout << "Removing duplicates without a buffer" << endl;
+	List.RemoveDuplicatesWithoutBuffer();
+	List.PrintList();
+	for( int i = 0; i < size; i++ )
+	{
+		List.AddElement(i<<1);
+	}
+	List.PrintList();
+	cout << "The last element is:" << List.FindNthFromLastElement(0)->data << endl;
+	cout << "The second from last element is:" << List.FindNthFromLastElement(1)->data << endl;
+	cout << "Test deleting the head" << endl;
+	List.RemoveNode(List.FindElement(0));
+	List.PrintList();
+	cout << "Test deleting the tail" << endl;
+	List.RemoveNode(List.FindNthFromLastElement(0));
+	List.PrintList();
+	cout << "Test deleting a middle node" << endl;
+	List.RemoveNode(List.FindElement( (List.GetSize()-1)>>1) );
+	List.PrintList();
+	LinkedList<int> CircularList;
+	for(int i = 0; i < size; i++ )
+	{
+		CircularList.AddElement(i);
+	}
+	CircularList.FindNthFromLastElement(0)->next = CircularList.FindElement( CircularList.GetSize()>>1 );
+	Node<int>* LoopBeginning = NULL;
+	if( CircularList.IsListCircular( LoopBeginning ) )
+		cout << "The beginning of the circular list is: " << LoopBeginning->data << endl;
+	else
+		cout << "Incorrectly believe that a circular list is not circular." << endl;
+	CircularList.GetTail()->next = NULL;
 }
 
 void TestDoublyLinkedList()
@@ -117,11 +163,12 @@ void TestQueue()
 
 int main()
 {
-	//TestLinkedList();
+	TestLinkedList();
 	//TestDoublyLinkedList();
 	//TestStack();
 	//TestQueue();
-	CCI_Test_ArraysAndStrings();
+	//CCI_Test_ArraysAndStrings();
+	//CCI_Test_LinkedLists();
 	system("pause");
 	return 0;
 }
