@@ -1,19 +1,19 @@
 #ifndef STACK_H
 #define STACK_H
 	#include "DoublyLinkedList.h"
-	template<class Data>
+	
 	class Stack {
 	public:
-		Stack(){ List = new DoublyLinkedList<Data>(); }
+		Stack(){ List = new DoublyLinkedList(); }
 		~Stack();
-		DoublyLinkedNode<Data>* Dequeue();
-		void Enqueue( Data Value );
+		DoublyLinkedNode* Dequeue();
+		DoublyLinkedNode* GetMin();
+		void Enqueue( int Value );
 	private:
-		DoublyLinkedList<Data>* List;
+		DoublyLinkedList* List;
 	};
 	
-	template<class Data>
-	Stack<Data>::~Stack() {
+	Stack::~Stack() {
 		if( List != NULL )
 		{
 			delete List;
@@ -21,16 +21,26 @@
 		}
 	}
 	
-	template<class Data>
-	void Stack<Data>::Enqueue( Data Value )
+	void Stack::Enqueue( int Value )
 	{
+		DoublyLinkedNode* prevTail = List->GetTail();
+		int prevMin = prevTail != NULL ? prevTail->minValue : INT_MAX;
+		DoublyLinkedNode* prevMinNode = prevTail != NULL ? prevTail->min : NULL;
 		List->AddElement(Value);
+		DoublyLinkedNode* node = List->GetTail();
+		node->minValue = prevMin < Value ? prevMin : Value;
+		node->min = prevMin < Value ? prevMinNode : node;
 	}
 	
-	template<class Data>
-	DoublyLinkedNode<Data>* Stack<Data>::Dequeue()
+	DoublyLinkedNode* Stack::Dequeue()
 	{
 		return List->IsEmpty() ? NULL : List->PopTail();
+	}
+
+	DoublyLinkedNode* Stack::GetMin()
+	{
+		DoublyLinkedNode* tail = List->GetTail();
+		return tail != NULL ? tail->min : NULL;
 	}
 	
 #endif

@@ -65,14 +65,18 @@
     <ClInclude Include="..\..\CCI_ArraysAndStrings.h" />
     <ClInclude Include="..\..\CCI_LinkedLists.h" />
     <ClInclude Include="..\..\DoublyLinkedList.h" />
+    <ClInclude Include="..\..\Graph.h" />
     <ClInclude Include="..\..\LinkedList.h" />
     <ClInclude Include="..\..\Queue.h" />
     <ClInclude Include="..\..\Stack.h" />
+    <ClInclude Include="..\..\Tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CCI_ArraysAndStrings.cpp" />
     <ClCompile Include="..\..\CCI_LinkedLists.cpp" />
+    <ClCompile Include="..\..\Graph.cpp" />
     <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\Tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

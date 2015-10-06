@@ -3,52 +3,54 @@
 	#include <stddef.h>
 	
 	#include <iostream>
+	#include <limits.h>
 	using namespace std;
 
-	template<class Data>
-	class DoublyLinkedNode {
-	public:
-		Data data;
-		DoublyLinkedNode<Data>* next;
-		DoublyLinkedNode<Data>* prev;
-		DoublyLinkedNode(Data Value): data(Value), next(NULL), prev(NULL) {}
+	struct DoublyLinkedNode {
+		int data;
+		int minValue;
+		DoublyLinkedNode* min;
+		DoublyLinkedNode* next;
+		DoublyLinkedNode* prev;
+		DoublyLinkedNode(int Value): data(Value), next(NULL), prev(NULL), minValue(INT_MAX), min(NULL) {}
 	};
 
-	template <class Data>
 	class DoublyLinkedList {
 	private:
-		DoublyLinkedNode<Data>* head;
-		DoublyLinkedNode<Data>* tail;
+		DoublyLinkedNode* head;
+		DoublyLinkedNode* tail;
+		int size;
 	public:
 	
-		DoublyLinkedList(): head(NULL), tail(NULL) {}
+		DoublyLinkedList(): head(NULL), tail(NULL), size(0) {}
 		~DoublyLinkedList();
 	
-		void AddElement( Data Value );
+		void AddElement( int Value );
 		//Removes the specified element from the list
-		void RemoveElement( Data Value );
+		void RemoveElement( int Value );
 		//Pops the last element of the list
-		DoublyLinkedNode<Data>* PopTail();
+		DoublyLinkedNode* PopTail();
+		DoublyLinkedNode* GetTail() { return tail; }
+		int GetSize() { return size; }
 		void PrintListForwards();
 		void PrintListBackwards();
 		bool IsEmpty();
 	};
 
-	template<class Data>
-	DoublyLinkedList<Data>::~DoublyLinkedList() {
-		DoublyLinkedNode<Data>* Current = head;
+	DoublyLinkedList::~DoublyLinkedList() {
+		DoublyLinkedNode* Current = head;
 		while( Current != NULL )
 		{
 			head = head->next;
 			delete Current;
 			Current = head;
 		}
+		size = 0;
 	}
 
-	template<class Data>
-	void DoublyLinkedList<Data>::AddElement( Data Value )
+	void DoublyLinkedList::AddElement( int Value )
 	{
-		DoublyLinkedNode<Data>* NewNode = new DoublyLinkedNode<Data>(Value);
+		DoublyLinkedNode* NewNode = new DoublyLinkedNode(Value);
 		if(head == NULL)
 		{
 			head = NewNode;
@@ -63,17 +65,17 @@
 		else
 		{
 			tail->next = NewNode;
-			DoublyLinkedNode<Data>* Temp = tail;
+			DoublyLinkedNode* Temp = tail;
 			tail = tail->next;
 			tail->prev = Temp;
 		}
+		size++;
 	}
 
 	//Removes the specified element from the list
-	template<class Data>
-	void DoublyLinkedList<Data>::RemoveElement( Data Value )
+	void DoublyLinkedList::RemoveElement( int Value )
 	{
-		DoublyLinkedNode<Data>* Current = head;
+		DoublyLinkedNode* Current = head;
 		while( Current != NULL )
 		{
 			if( Current->data == Value )
@@ -102,11 +104,12 @@
 				}
 				else
 				{
-					DoublyLinkedNode<Data>* Prev = Current->prev;
-					DoublyLinkedNode<Data>* Next = Current->next;
+					DoublyLinkedNode* Prev = Current->prev;
+					DoublyLinkedNode* Next = Current->next;
 					Prev->next = Next;
 					Next->prev = Prev;
 				}
+				size--;
 				delete Current;
 				return;
 			}
@@ -115,10 +118,9 @@
 		cout << "Could not find the specified element " << Value << endl;
 	}
 
-	template<class Data>
-	void DoublyLinkedList<Data>::PrintListForwards()
+	void DoublyLinkedList::PrintListForwards()
 	{
-		DoublyLinkedNode<Data>* Current = head;
+		DoublyLinkedNode* Current = head;
 		while( Current != NULL )
 		{
 			cout << Current->data << " ";
@@ -127,10 +129,9 @@
 		cout << endl;
 	}
 	
-	template<class Data>
-	void DoublyLinkedList<Data>::PrintListBackwards()
+	void DoublyLinkedList::PrintListBackwards()
 	{
-		DoublyLinkedNode<Data>* Current = tail;
+		DoublyLinkedNode* Current = tail;
 		while( Current != NULL )
 		{
 			cout << Current->data << " ";
@@ -139,16 +140,14 @@
 		cout << endl;
 	}
 
-	template<class Data>
-	bool DoublyLinkedList<Data>::IsEmpty()
+	bool DoublyLinkedList::IsEmpty()
 	{
 		return head == NULL;
 	}
 	
-	template<class Data>
-	DoublyLinkedNode<Data>* DoublyLinkedList<Data>::PopTail()
+	DoublyLinkedNode* DoublyLinkedList::PopTail()
 	{
-		DoublyLinkedNode<Data>* ReturnElement = NULL;
+		DoublyLinkedNode* ReturnElement = NULL;
 		if( head == NULL )
 		{
 			return NULL;
@@ -165,6 +164,7 @@
 			tail = tail->prev;
 			tail->next = NULL;
 		}
+		size--;
 		return ReturnElement;
 	}
 

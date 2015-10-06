@@ -1,6 +1,7 @@
 #include "CCI_ArraysAndStrings.h"
 #include "CCI_LinkedLists.h"
 #include "DoublyLinkedList.h"
+#include "Graph.h"
 #include "LinkedList.h"
 #include "Queue.h"
 #include "Stack.h"
@@ -78,7 +79,7 @@ void TestLinkedList()
 void TestDoublyLinkedList()
 {
 	const int size = 5;
-	DoublyLinkedList<int> List;
+	DoublyLinkedList List;
 	for(int i = 0; i < size; i++)
 	{
 		List.AddElement(i);
@@ -116,23 +117,26 @@ void TestDoublyLinkedList()
 void TestStack()
 {
 	const int size = 5;
-	Stack<int> stack;
+	Stack stack;
 	//test dequeueing from an empty stack
 	if( stack.Dequeue() != NULL )
 		cout << "Dequeuing from an empty stack failed" << endl;
 	else
 		cout << "Dequeuing form an empty stack passed" << endl;
 	for(int i = 0; i < size; i++ )
-		stack.Enqueue(i);
+		stack.Enqueue(size-i);
 	for(int i = 0; i < size; i++ )
+		stack.Enqueue(i);
+	for(int i = 0; i < size<<1; i++ )
 	{
-		DoublyLinkedNode<int>* node = stack.Dequeue();
+		DoublyLinkedNode* node = stack.Dequeue();
 		if( node == NULL )
 		{
 			cout << "Somehow got an empty node" << endl;
 			break;
 		}
-		cout << "The " << i << "th elemnt of the stack is: " << node->data << endl;
+		cout << "The " << i << "th element of the stack is: " << node->data << endl;
+		cout << "The minimum node of the stack is: " << node->min->data << endl; 
 		delete node;
 	}
 }
@@ -161,12 +165,26 @@ void TestQueue()
 	}
 }
 
+void TestGraph()
+{
+	Graph graph;
+	GraphNode a, b, c, d, e, f;
+	graph.AddNode(&a); graph.AddNode(&b); graph.AddNode(&c); graph.AddNode(&d); graph.AddNode(&e); graph.AddNode(&f);
+	graph.ConnectNodeAToNodeB(&a, &b); graph.ConnectNodeAToNodeB(&b, &c); graph.ConnectNodeAToNodeB(&c, &d); graph.ConnectNodeAToNodeB(&d, &e); graph.ConnectNodeAToNodeB(&e, &f);
+	graph.ConnectNodeAToNodeB(&c, &a); graph.ConnectNodeAToNodeB(&d, &f); graph.ConnectNodeAToNodeB(&c, &b); graph.ConnectNodeAToNodeB(&b, &d); graph.ConnectNodeAToNodeB(&e, &b);
+	if( graph.DoesPathBetweenNodesExist_BFS(&a, &f) )
+		cout << "Found the path betweeen a and f" << endl;
+	else
+		cout << "Could not find the path between a and f" << endl;
+}
+
 int main()
 {
-	TestLinkedList();
+	//TestLinkedList();
 	//TestDoublyLinkedList();
 	//TestStack();
 	//TestQueue();
+	TestGraph();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
 	system("pause");

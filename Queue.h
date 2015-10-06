@@ -8,6 +8,7 @@
 		~Queue();
 		Node<Data>* Dequeue();
 		void Enqueue( Data Value );
+		bool IsEmpty() { return List->IsEmpty(); }
 	private:
 		LinkedList<Data>* List;
 	};
