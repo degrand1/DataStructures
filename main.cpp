@@ -5,7 +5,7 @@
 #include "LinkedList.h"
 #include "Queue.h"
 #include "Stack.h"
-
+#include "Tree.h"
 
 #include <iostream>
 using namespace std;
@@ -178,13 +178,33 @@ void TestGraph()
 		cout << "Could not find the path between a and f" << endl;
 }
 
+void TestTree()
+{
+	Tree tree;
+	const int size = 7;
+	int array[size];
+	for(int i = 0; i < size; i++ )
+	{
+		array[i] = i;
+	}
+	tree.CreateBSTFromSortedList(array, size);
+	tree.InOrderTraversal();
+	LinkedList<int>* arrayList = tree.CreateArrayOfLinkedListsForEachLevelOfTree();
+	int numLevels = tree.GetHeight();
+	for(int i = 0; i < numLevels; i++ )
+	{
+		arrayList[i].PrintList();
+	}
+}
+
 int main()
 {
 	//TestLinkedList();
 	//TestDoublyLinkedList();
 	//TestStack();
 	//TestQueue();
-	TestGraph();
+	//TestGraph();
+	TestTree();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
 	system("pause");
