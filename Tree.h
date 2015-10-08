@@ -7,19 +7,20 @@
 	struct TreeNode {
 		TreeNode* left;
 		TreeNode* right;
+		TreeNode* parent;
 		int data;
 	};
 
 	class Tree {
 	private:
-		TreeNode* root;
 		void DeleteTreeHelper(TreeNode* node);
-		TreeNode* CreateBSTTreeNode(int* list, int start, int end );
+		TreeNode* CreateBSTTreeNode(int* list, int start, int end, TreeNode* parent  );
 		void InOrderTraversalHelper(TreeNode* node);
 		void CreateArrayOfLinkedListsForEachLevelOfTreeHelper( LinkedList<int>* arrayList, int level, TreeNode* node );
 		int GetMaxHeight(TreeNode* node);
 		int GetMinHeight(TreeNode* node);
 	public:
+		TreeNode* root;
 		Tree() : root(NULL) {}
 		~Tree();
 
@@ -28,5 +29,6 @@
 		void CreateBSTFromSortedList(int* list, int n);
 		void InOrderTraversal();
 		LinkedList<int>* CreateArrayOfLinkedListsForEachLevelOfTree();
+		TreeNode* GetInOrderSuccessor( TreeNode* node );
 	};
 #endif

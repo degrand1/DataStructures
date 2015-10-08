@@ -50,20 +50,21 @@ void Tree::InOrderTraversal()
 	InOrderTraversalHelper(root);
 }
 
-TreeNode* Tree::CreateBSTTreeNode(int* list, int start, int end )
+TreeNode* Tree::CreateBSTTreeNode(int* list, int start, int end, TreeNode* parent )
 {
 	if( end < start ) return NULL;
 	int mid = (start + end)/2;
 	TreeNode* node = new TreeNode();
 	node->data = list[mid];
-	node->left = CreateBSTTreeNode(list, start, mid-1);
-	node->right = CreateBSTTreeNode(list, mid+1, end);
+	node->parent = parent;
+	node->left = CreateBSTTreeNode(list, start, mid-1, node);
+	node->right = CreateBSTTreeNode(list, mid+1, end, node);
 	return node;
 }
 
 void Tree::CreateBSTFromSortedList(int* list, int n)
 {
-	root = CreateBSTTreeNode( list, 0, n-1);
+	root = CreateBSTTreeNode( list, 0, n-1, NULL);
 }
 
 void Tree::CreateArrayOfLinkedListsForEachLevelOfTreeHelper( LinkedList<int>* arrayList, int level, TreeNode* node )
@@ -80,4 +81,29 @@ LinkedList<int>* Tree::CreateArrayOfLinkedListsForEachLevelOfTree()
 	LinkedList<int>* returnList = new LinkedList<int>[numLevels];
 	CreateArrayOfLinkedListsForEachLevelOfTreeHelper( returnList, 0, root );
 	return returnList;
+}
+
+TreeNode* Tree::GetInOrderSuccessor( TreeNode* node )
+{
+	if( node == NULL ) return NULL;
+	if( node->right != NULL )
+	{
+		//Get the leftmode node of this subtree
+		TreeNode* leftModeNode = NULL;
+		TreeNode* currentNode = node->right;
+		while( currentNode != NULL )
+		{
+			leftModeNode = currentNode;
+			currentNode = currentNode->left;
+		}
+		return leftModeNode;
+	}
+	//If the root has no right children, then there is no successor
+	TreeNode* parent = node->parent;
+	while( parent != NULL )
+	{
+		if( parent->left == node )
+			break;
+	}
+	return parent;
 }

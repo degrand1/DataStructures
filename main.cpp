@@ -195,6 +195,18 @@ void TestTree()
 	{
 		arrayList[i].PrintList();
 	}
+	TreeNode* TheNumberTwo = tree.root->left->right;
+	TreeNode* TheNumberZero = tree.root->left->left;
+	TreeNode* TheNumberOne = tree.root->left;
+	TreeNode* TheNumberThree = tree.root;
+	TreeNode* TheNumberFive = tree.root->right;
+	TreeNode* TheNumberFour = tree.root->right->left;
+	cout << "The value for the number two is:" << TheNumberTwo->data << endl;
+	cout << "The value for the number three is:" << TheNumberThree->data << endl;
+	cout << "The value for the number zero is:" << TheNumberZero->data << endl;
+	cout << "The value for the number four is:" << TheNumberFour->data << endl;
+	cout << "The value for the number five is:" << TheNumberFive->data << endl;
+	cout << "The value for the number one is:" << TheNumberOne->data << endl;
 }
 
 int main()
