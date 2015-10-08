@@ -107,3 +107,50 @@ TreeNode* Tree::GetInOrderSuccessor( TreeNode* node )
 	}
 	return parent;
 }
+
+int Tree::NumberOfNodesCoveredByRoot( TreeNode* root, TreeNode* p, TreeNode* q )
+{
+	if( root == NULL ) return 0;
+	int NumNodes = 0;
+	if( root == p || root == q ) NumNodes++;
+	NumNodes += NumberOfNodesCoveredByRoot( root->left, p, q );
+	if( NumNodes == 2 ) return NumNodes; //return early if both nodes were found
+	return NumNodes + NumberOfNodesCoveredByRoot(root->right, p, q );
+}
+
+TreeNode* Tree::GetCommonAncestorHelper( TreeNode* root, TreeNode* p, TreeNode* q )
+{
+	//edge case for when p and q equal each other
+	if( root == NULL ) return NULL;
+	if( p == q ) return root->parent;
+	int NumNodesOnLeftSide = NumberOfNodesCoveredByRoot( root->left, p, q );
+	if( NumNodesOnLeftSide == 2 )
+	{
+		if( root->left == p || root->left == q ) return root->left;
+		else return GetCommonAncestorHelper( root->left, p, q );
+	}
+	else if( NumNodesOnLeftSide == 1 )
+	{
+		if( root == p ) return p;
+		if( root == q ) return q;
+	}
+	int NumNodesOnRightSide = NumberOfNodesCoveredByRoot( root->right, p, q );
+	if( NumNodesOnRightSide == 2 )
+	{
+		if( root->right == p || root->right == q ) return root->right;
+		else return GetCommonAncestorHelper( root->right, p, q );
+	}
+	else if( NumNodesOnRightSide == 1 )
+	{
+		if( root == p ) return p;
+		if( root == q ) return q;
+	}
+
+	if( NumNodesOnRightSide == 1 && NumNodesOnLeftSide == 1 ) return root;
+	return NULL;
+}
+
+TreeNode* Tree::GetCommonAncsestor( TreeNode* p, TreeNode* q )
+{
+	return GetCommonAncestorHelper( root, p, q);
+}

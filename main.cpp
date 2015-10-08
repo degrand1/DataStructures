@@ -207,6 +207,7 @@ void TestTree()
 	cout << "The value for the number four is:" << TheNumberFour->data << endl;
 	cout << "The value for the number five is:" << TheNumberFive->data << endl;
 	cout << "The value for the number one is:" << TheNumberOne->data << endl;
+	cout << "The first common ancestory of 2 and 4 is:" << tree.GetCommonAncsestor( TheNumberTwo, TheNumberFour )->data << endl;
 }
 
 int main()

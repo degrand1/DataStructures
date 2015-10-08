@@ -19,6 +19,8 @@
 		void CreateArrayOfLinkedListsForEachLevelOfTreeHelper( LinkedList<int>* arrayList, int level, TreeNode* node );
 		int GetMaxHeight(TreeNode* node);
 		int GetMinHeight(TreeNode* node);
+		TreeNode* GetCommonAncestorHelper( TreeNode* root, TreeNode* p, TreeNode* q );
+		int NumberOfNodesCoveredByRoot( TreeNode* root, TreeNode* p, TreeNode* q );
 	public:
 		TreeNode* root;
 		Tree() : root(NULL) {}
@@ -30,5 +32,6 @@
 		void InOrderTraversal();
 		LinkedList<int>* CreateArrayOfLinkedListsForEachLevelOfTree();
 		TreeNode* GetInOrderSuccessor( TreeNode* node );
+		TreeNode* GetCommonAncsestor( TreeNode* p, TreeNode* q );
 	};
 #endif
