@@ -24,10 +24,12 @@
 	
 		LinkedList(): head(NULL), tail(NULL), size(0) {}
 		~LinkedList();
+		LinkedList<Data>& operator=(const LinkedList<Data>& other );
+		LinkedList<Data>( const LinkedList<Data> &other);
 	
 		int GetSize() { return size; }
-		Node<Data>* GetHead() { return head; }
-		Node<Data>* GetTail() { return tail; }
+		Node<Data>* GetHead() const { return head; }
+		Node<Data>* GetTail() const { return tail; }
 		void AddElement( Data Value );
 		//Removes the specified element from the list
 		void RemoveElement( Data Value );
@@ -62,6 +64,65 @@
 			Current = head;
 		}
 		size = 0;
+	}
+
+	template<class Data>
+	LinkedList<Data>& LinkedList<Data>::operator=(const LinkedList<Data>& other ) {
+		if( this != &other ) //check for self assignment
+		{
+			//Reuse memory if possible. If there are excess nodes, delete them after copy the data over
+			int sizeDifference = this->size - other.size;
+			Node<Data>* otherCurrent = other.GetHead();
+			Node<Data>* thisCurrent = head;
+			Node<Data>* thisCurrentPrev = NULL;
+			int count = 0;
+			if( otherCurrent == NULL )
+			{
+				head = NULL;
+				tail = NULL;
+			}
+			//Copy over the data
+			while( otherCurrent != NULL )
+			{
+				//It's possible the this list ran out of nodes. Allocate memory if it did
+				if( thisCurrent == NULL ) 
+					thisCurrent = new Node<Data>(otherCurrent->data);
+				if( thisCurrentPrev != NULL )
+					thisCurrentPrev->next = thisCurrent;
+				if( count == 0 ) 
+					head = thisCurrent;
+				if( count == other.size - 1 ) 
+					tail = thisCurrent;
+				thisCurrent->data = otherCurrent->data;
+				otherCurrent = otherCurrent->next;
+				thisCurrentPrev = thisCurrent;
+				thisCurrent = thisCurrent->next;
+				count++;
+			}
+			//Now delete all of the excess nodes
+			if( sizeDifference > 0 )
+			{
+				Node<Data>* current = tail->next;
+				while( current != NULL )
+				{
+					Node<Data>* temp = current->next;
+					delete current;
+					current = temp;
+				}
+			}
+			this->size = other.size;
+			if( tail != NULL ) tail->next = NULL;
+		}
+		return *this;
+	}
+
+	template<class Data>
+	LinkedList<Data>::LinkedList<Data>( const LinkedList<Data> &other)
+	{
+		size = 0;
+		head = NULL;
+		tail = NULL;
+		*this = other;
 	}
 
 	template<class Data>

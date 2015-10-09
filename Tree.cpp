@@ -154,3 +154,57 @@ TreeNode* Tree::GetCommonAncsestor( TreeNode* p, TreeNode* q )
 {
 	return GetCommonAncestorHelper( root, p, q);
 }
+
+bool Tree::DoesTreeOneContainTreeTwo( TreeNode* tree1, TreeNode* tree2 )
+{
+	if( tree2 == NULL ) return true; //An empty tree is a subtree of all trees, technically
+	return IsTreeTwoASubTreeOfTreeOne( tree1, tree2 );
+}
+
+bool Tree::IsTreeTwoASubTreeOfTreeOne( TreeNode* tree1, TreeNode* tree2 )
+{
+	if( tree1 == NULL ) return false; //Tree1 exhausted with no match found
+	if( tree1->data == tree2->data && AreTreesEqual( tree1, tree2 ) ) return true;
+	return IsTreeTwoASubTreeOfTreeOne( tree1->left, tree2 ) || IsTreeTwoASubTreeOfTreeOne( tree1->right, tree2 );
+}
+
+bool Tree::AreTreesEqual( TreeNode* tree1, TreeNode* tree2 )
+{
+	if( tree1 == NULL && tree2 == NULL ) return true; //Nothing left to search
+	if( tree1 == NULL || tree2 == NULL ) return false; //Tree1 exhausted with no match found
+	if( tree1->data != tree2->data ) return false; //No match
+	return AreTreesEqual( tree1->left, tree2->left ) && AreTreesEqual( tree1->right, tree2->right ); //Continue searching the remainder of the tree;
+}
+
+void Tree::PrintPathsInTreeThatSumToValue( TreeNode* head, LinkedList<int> buffer, int sum, int currentLevel )
+{
+	if( head == NULL ) return;
+
+	int temp = sum;
+	buffer.AddElement(head->data);
+	for( int i = currentLevel; i >= 0; i-- )
+	{
+		temp -= buffer.FindElement(i)->data;
+		if( temp == 0 ) PrintTreeFromLevels( buffer, i, currentLevel );
+	}
+
+	LinkedList<int> leftBuffer;
+	leftBuffer = buffer;
+	LinkedList<int> rightBuffer;
+	rightBuffer = buffer;
+	PrintPathsInTreeThatSumToValue( head->left, leftBuffer, sum, currentLevel+1 );
+	PrintPathsInTreeThatSumToValue( head->right, rightBuffer, sum, currentLevel+1 );
+}
+
+void Tree::PrintTreeFromLevels( LinkedList<int> buffer, int topLevel, int bottomLevel )
+{
+	Node<int>* Data = buffer.FindElement( topLevel );
+	int i;
+	for(i = topLevel; i <= bottomLevel && Data != NULL; i++ )
+	{
+		cout << Data->data << " ";
+		Data = Data->next;
+	}
+	if( Data == NULL && i <= bottomLevel ) cout << "\nSomething went horribly wrong";
+	cout << endl;
+}

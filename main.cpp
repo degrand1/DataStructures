@@ -208,6 +208,12 @@ void TestTree()
 	cout << "The value for the number five is:" << TheNumberFive->data << endl;
 	cout << "The value for the number one is:" << TheNumberOne->data << endl;
 	cout << "The first common ancestory of 2 and 4 is:" << tree.GetCommonAncsestor( TheNumberTwo, TheNumberFour )->data << endl;
+	if( tree.DoesTreeOneContainTreeTwo( tree.root, TheNumberFive ) )
+		cout << "Passed the test for finding subtrees" << endl;
+	else
+		cout << "Failed the test for finding subtrees" << endl;
+	LinkedList<int> buffer;
+	tree.PrintPathsInTreeThatSumToValue( tree.root, buffer, 6, 0 );
 }
 
 int main()
