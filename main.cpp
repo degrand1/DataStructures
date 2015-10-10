@@ -4,6 +4,7 @@
 #include "Graph.h"
 #include "LinkedList.h"
 #include "Queue.h"
+#include "Sort.h"
 #include "Stack.h"
 #include "Tree.h"
 
@@ -216,6 +217,27 @@ void TestTree()
 	tree.PrintPathsInTreeThatSumToValue( tree.root, buffer, 6, 0 );
 }
 
+static void printArray(int *array, int n)
+{
+	for(int i = 0; i < n; i++ )
+		cout << array[i] << " ";
+	cout << endl;
+}
+
+void TestSort()
+{
+	const int size = 8;
+	int array[size];
+	for( int i = 0; i < size; i++ )
+	{
+		array[i] = size - i - 1;
+	}
+	printArray( array, size );
+	QuickSort( array, size );
+	printArray( array, size );
+
+}
+
 int main()
 {
 	//TestLinkedList();
@@ -223,7 +245,8 @@ int main()
 	//TestStack();
 	//TestQueue();
 	//TestGraph();
-	TestTree();
+	//TestTree();
+	TestSort();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
 	system("pause");
