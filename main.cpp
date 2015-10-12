@@ -1,3 +1,4 @@
+#include "BitManipulation.h"
 #include "CCI_ArraysAndStrings.h"
 #include "CCI_LinkedLists.h"
 #include "DoublyLinkedList.h"
@@ -238,6 +239,13 @@ void TestSort()
 
 }
 
+void TestBitManipulation()
+{
+	int test1 = BM_SetBitIndexValuesOfNToM( 128, 10, 2, 5 );
+	char* test1Result = test1 == 168 ? "Passed" : "Failed";
+	cout << test1Result << " the first bit manipulation question" << endl;
+}
+
 int main()
 {
 	//TestLinkedList();
@@ -246,7 +254,8 @@ int main()
 	//TestQueue();
 	//TestGraph();
 	//TestTree();
-	TestSort();
+	//TestSort();
+	TestBitManipulation();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
 	system("pause");
