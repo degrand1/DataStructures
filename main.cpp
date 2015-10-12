@@ -244,6 +244,9 @@ void TestBitManipulation()
 	int test1 = BM_SetBitIndexValuesOfNToM( 128, 10, 2, 5 );
 	char* test1Result = test1 == 168 ? "Passed" : "Failed";
 	cout << test1Result << " the first bit manipulation question" << endl;
+	string test2Value("1.75");
+	cout << "The value of " << test2Value << " has the following binary value: ";
+	BM_PrintStringInBinary( test2Value );
 }
 
 int main()
