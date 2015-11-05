@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include "Stack.h"
 
 using namespace std;
 
@@ -15,7 +16,6 @@ void Tree::DeleteTreeHelper(TreeNode* node)
 	if( node == NULL ) return;
 	DeleteTreeHelper(node->left);
 	DeleteTreeHelper(node->right);
-	cout << "Deleting node: " << node->data << endl;
 	delete node;
 }
 
@@ -48,6 +48,10 @@ void Tree::InOrderTraversalHelper(TreeNode* node)
 void Tree::InOrderTraversal()
 {
 	InOrderTraversalHelper(root);
+}
+
+void Tree::PreOrderTraversal_NoRecursion()
+{
 }
 
 TreeNode* Tree::CreateBSTTreeNode(int* list, int start, int end, TreeNode* parent )

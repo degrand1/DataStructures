@@ -3,7 +3,9 @@
 #include "CCI_LinkedLists.h"
 #include "DoublyLinkedList.h"
 #include "Graph.h"
+#include "InterviewReview.h"
 #include "LinkedList.h"
+#include "PIE_TreesAndGraphs.h"
 #include "Queue.h"
 #include "Sort.h"
 #include "Stack.h"
@@ -81,7 +83,7 @@ void TestLinkedList()
 void TestDoublyLinkedList()
 {
 	const int size = 5;
-	DoublyLinkedList List;
+	DoublyLinkedList<int> List;
 	for(int i = 0; i < size; i++)
 	{
 		List.AddElement(i);
@@ -119,7 +121,7 @@ void TestDoublyLinkedList()
 void TestStack()
 {
 	const int size = 5;
-	Stack stack;
+	Stack<int> stack;
 	//test dequeueing from an empty stack
 	if( stack.Dequeue() != NULL )
 		cout << "Dequeuing from an empty stack failed" << endl;
@@ -131,7 +133,7 @@ void TestStack()
 		stack.Enqueue(i);
 	for(int i = 0; i < size<<1; i++ )
 	{
-		DoublyLinkedNode* node = stack.Dequeue();
+		DoublyLinkedNode<int>* node = stack.Dequeue();
 		if( node == NULL )
 		{
 			cout << "Somehow got an empty node" << endl;
@@ -247,6 +249,14 @@ void TestBitManipulation()
 	string test2Value("1.75");
 	cout << "The value of " << test2Value << " has the following binary value: ";
 	BM_PrintStringInBinary( test2Value );
+	char* test5Result = BM_NumBitsThatAreDifferent( 31, 14 ) == 2 ? "Passed" : "Failed";
+	cout << test5Result << " the fifth bit manipulation question" << endl;
+}
+
+void TestInterviewReview()
+{
+	SteelChair myChair;
+	myChair.TestForce();
 }
 
 int main()
@@ -258,9 +268,12 @@ int main()
 	//TestGraph();
 	//TestTree();
 	//TestSort();
-	TestBitManipulation();
+	//TestBitManipulation();
+	//TestInterviewReview();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
+	PIE_Test_TreesAndGraphs();
+
 	system("pause");
 	return 0;
 }

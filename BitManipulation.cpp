@@ -63,3 +63,25 @@ void BM_PrintStringInBinary( string value )
 	float floatPart = stof( value.substr(value.find(".")) );
 	BM_PrintInBinary( intPart, floatPart );
 }
+
+int BM_NumBitsThatAreDifferent( int A, int B )
+{
+	int differentBits = A ^ B;
+	int numDifferentBits = 0;
+	for( int i = 0; i < 31; i ++ )
+	{
+		int temp = differentBits & 1;
+		if( temp == 1 ) numDifferentBits++;
+		differentBits = differentBits >> 1;
+	}
+	return numDifferentBits;
+}
+
+int BM_SwapEvenOddBits( int value )
+{
+	//0xa is 1010 and 0x5 is 0101. The a masks out the odd bits while the 5 masks out the even bits. 
+	int evenBits = value & 0xaaaaaaaa;
+	int oddBits  = value & 0x55555555;
+	//The shift moves the target bits in the correct spot. Or these two values together, and you have your answer.
+	return ( evenBits >> 1 ) | ( oddBits << 1 );
+}

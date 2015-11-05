@@ -117,7 +117,7 @@
 	}
 
 	template<class Data>
-	LinkedList<Data>::LinkedList<Data>( const LinkedList<Data> &other)
+	LinkedList<Data>::LinkedList( const LinkedList<Data> &other)
 	{
 		size = 0;
 		head = NULL;

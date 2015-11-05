@@ -33,6 +33,7 @@
 		int GetHeight() { return GetMaxHeight(root); }
 		void CreateBSTFromSortedList(int* list, int n);
 		void InOrderTraversal();
+		void PreOrderTraversal_NoRecursion();
 		LinkedList<int>* CreateArrayOfLinkedListsForEachLevelOfTree();
 		TreeNode* GetInOrderSuccessor( TreeNode* node );
 		TreeNode* GetCommonAncsestor( TreeNode* p, TreeNode* q );

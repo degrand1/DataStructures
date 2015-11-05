@@ -6,7 +6,16 @@
 	#include <limits.h>
 	using namespace std;
 
+	template<class Data>
 	struct DoublyLinkedNode {
+		Data data;
+		DoublyLinkedNode* next;
+		DoublyLinkedNode* prev;
+		DoublyLinkedNode(Data Value): data(Value), next(NULL), prev(NULL){}
+	};
+
+	template<>
+	struct DoublyLinkedNode<int> {
 		int data;
 		int minValue;
 		DoublyLinkedNode* min;
@@ -15,30 +24,33 @@
 		DoublyLinkedNode(int Value): data(Value), next(NULL), prev(NULL), minValue(INT_MAX), min(NULL) {}
 	};
 
+	template<class Data>
 	class DoublyLinkedList {
 	private:
-		DoublyLinkedNode* head;
-		DoublyLinkedNode* tail;
+		DoublyLinkedNode<Data>* head;
+		DoublyLinkedNode<Data>* tail;
 		int size;
 	public:
 	
 		DoublyLinkedList(): head(NULL), tail(NULL), size(0) {}
 		~DoublyLinkedList();
 	
-		void AddElement( int Value );
+		void AddElement( Data Value );
 		//Removes the specified element from the list
-		void RemoveElement( int Value );
+		void RemoveElement( Data Value );
 		//Pops the last element of the list
-		DoublyLinkedNode* PopTail();
-		DoublyLinkedNode* GetTail() { return tail; }
+		DoublyLinkedNode<Data>* PopTail();
+		DoublyLinkedNode<Data>* GetTail() { return tail; }
 		int GetSize() { return size; }
 		void PrintListForwards();
 		void PrintListBackwards();
 		bool IsEmpty();
 	};
 
-	DoublyLinkedList::~DoublyLinkedList() {
-		DoublyLinkedNode* Current = head;
+	template<class Data>
+	DoublyLinkedList<Data>::~DoublyLinkedList()
+	{
+		DoublyLinkedNode<Data>* Current = head;
 		while( Current != NULL )
 		{
 			head = head->next;
@@ -48,9 +60,10 @@
 		size = 0;
 	}
 
-	void DoublyLinkedList::AddElement( int Value )
+	template<class Data>
+	void DoublyLinkedList<Data>::AddElement(Data Value )
 	{
-		DoublyLinkedNode* NewNode = new DoublyLinkedNode(Value);
+		DoublyLinkedNode<Data>* NewNode = new DoublyLinkedNode<Data>(Value);
 		if(head == NULL)
 		{
 			head = NewNode;
@@ -65,7 +78,7 @@
 		else
 		{
 			tail->next = NewNode;
-			DoublyLinkedNode* Temp = tail;
+			DoublyLinkedNode<Data>* Temp = tail;
 			tail = tail->next;
 			tail->prev = Temp;
 		}
@@ -73,9 +86,10 @@
 	}
 
 	//Removes the specified element from the list
-	void DoublyLinkedList::RemoveElement( int Value )
+	template<class Data>
+	void DoublyLinkedList<Data>::RemoveElement( Data Value )
 	{
-		DoublyLinkedNode* Current = head;
+		DoublyLinkedNode<Data>* Current = head;
 		while( Current != NULL )
 		{
 			if( Current->data == Value )
@@ -104,8 +118,8 @@
 				}
 				else
 				{
-					DoublyLinkedNode* Prev = Current->prev;
-					DoublyLinkedNode* Next = Current->next;
+					DoublyLinkedNode<Data>* Prev = Current->prev;
+					DoublyLinkedNode<Data>* Next = Current->next;
 					Prev->next = Next;
 					Next->prev = Prev;
 				}
@@ -118,9 +132,10 @@
 		cout << "Could not find the specified element " << Value << endl;
 	}
 
-	void DoublyLinkedList::PrintListForwards()
+	template<class Data>
+	void DoublyLinkedList<Data>::PrintListForwards()
 	{
-		DoublyLinkedNode* Current = head;
+		DoublyLinkedNode<Data>* Current = head;
 		while( Current != NULL )
 		{
 			cout << Current->data << " ";
@@ -129,9 +144,10 @@
 		cout << endl;
 	}
 	
-	void DoublyLinkedList::PrintListBackwards()
+	template<class Data>
+	void DoublyLinkedList<Data>::PrintListBackwards()
 	{
-		DoublyLinkedNode* Current = tail;
+		DoublyLinkedNode<Data>* Current = tail;
 		while( Current != NULL )
 		{
 			cout << Current->data << " ";
@@ -140,14 +156,16 @@
 		cout << endl;
 	}
 
-	bool DoublyLinkedList::IsEmpty()
+	template<class Data>
+	bool DoublyLinkedList<Data>::IsEmpty()
 	{
 		return head == NULL;
 	}
 	
-	DoublyLinkedNode* DoublyLinkedList::PopTail()
+	template<class Data>
+	DoublyLinkedNode<Data>* DoublyLinkedList<Data>::PopTail()
 	{
-		DoublyLinkedNode* ReturnElement = NULL;
+		DoublyLinkedNode<Data>* ReturnElement = NULL;
 		if( head == NULL )
 		{
 			return NULL;
