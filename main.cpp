@@ -2,6 +2,7 @@
 #include "CCI_ArraysAndStrings.h"
 #include "CCI_LinkedLists.h"
 #include "DoublyLinkedList.h"
+#include "GFG_Stacks.h"
 #include "Graph.h"
 #include "InterviewReview.h"
 #include "LinkedList.h"
@@ -272,7 +273,8 @@ int main()
 	//TestInterviewReview();
 	//CCI_Test_ArraysAndStrings();
 	//CCI_Test_LinkedLists();
-	PIE_Test_TreesAndGraphs();
+	GFG_Test_Stacks();
+	//PIE_Test_TreesAndGraphs();
 
 	system("pause");
 	return 0;

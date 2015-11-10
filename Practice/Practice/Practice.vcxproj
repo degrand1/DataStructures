@@ -66,6 +66,7 @@
     <ClInclude Include="..\..\CCI_ArraysAndStrings.h" />
     <ClInclude Include="..\..\CCI_LinkedLists.h" />
     <ClInclude Include="..\..\DoublyLinkedList.h" />
+    <ClInclude Include="..\..\GFG_Stacks.h" />
     <ClInclude Include="..\..\Graph.h" />
     <ClInclude Include="..\..\InterviewReview.h" />
     <ClInclude Include="..\..\LinkedList.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="..\..\BitManipulation.cpp" />
     <ClCompile Include="..\..\CCI_ArraysAndStrings.cpp" />
     <ClCompile Include="..\..\CCI_LinkedLists.cpp" />
+    <ClCompile Include="..\..\GFG_Stacks.cpp" />
     <ClCompile Include="..\..\Graph.cpp" />
     <ClCompile Include="..\..\main.cpp" />
     <ClCompile Include="..\..\PIE_TreesAndGraphs.cpp" />

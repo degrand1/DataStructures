@@ -8,6 +8,7 @@
 		Stack(){ List = new DoublyLinkedList<Data>(); }
 		~Stack();
 		DoublyLinkedNode<Data>* Dequeue();
+		DoublyLinkedNode<Data>* Peek() { return List->GetTail(); }
 		void Enqueue( Data Value );
 		bool IsEmpty() { return List->IsEmpty(); }
 	private:
@@ -46,6 +47,8 @@
 			DoublyLinkedNode<int>* tail = List->GetTail();
 			return tail != NULL ? tail->min : NULL;
 		}
+
+		DoublyLinkedNode<int>* Peek() { return List->GetTail(); }
 
 		bool IsEmpty() { return List->IsEmpty(); }
 	private:
