@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\GFG_Stacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\CCI_AdditionalReview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\main.cpp">
@@ -81,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\GFG_Stacks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CCI_AdditionalReview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

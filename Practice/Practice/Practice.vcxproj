@@ -63,6 +63,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\BitManipulation.h" />
+    <ClInclude Include="..\..\CCI_AdditionalReview.h" />
     <ClInclude Include="..\..\CCI_ArraysAndStrings.h" />
     <ClInclude Include="..\..\CCI_LinkedLists.h" />
     <ClInclude Include="..\..\DoublyLinkedList.h" />
@@ -78,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\BitManipulation.cpp" />
+    <ClCompile Include="..\..\CCI_AdditionalReview.cpp" />
     <ClCompile Include="..\..\CCI_ArraysAndStrings.cpp" />
     <ClCompile Include="..\..\CCI_LinkedLists.cpp" />
     <ClCompile Include="..\..\GFG_Stacks.cpp" />
