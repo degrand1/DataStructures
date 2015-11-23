@@ -84,7 +84,45 @@ static void CCI_Test_HitsInGuess()
 	cout << test1Result << " test1 for getting the number of hits." << endl;
 }
 
+static void FindLargestRunningSequence( int* Input, int length, int* StartIndex, int* EndIndex, int* LargestSum )
+{
+	*StartIndex = 0;
+	*EndIndex = 0;
+	*LargestSum = Input[0];
+	int runningTotal = Input[0];
+	for(int i = 1; i < length; i++)
+	{
+		if( Input[i] + runningTotal > *LargestSum ) //Encountered a sequence of numbers that increase the largest sum
+		{
+			*EndIndex = i;
+			runningTotal += Input[i];
+			*LargestSum = runningTotal;
+		}
+		else if( Input[i] > *LargestSum ) //Encountered a number that is bigger than the largest sum, but was preceeded by negative numbers
+		{
+			*StartIndex = i;
+			*EndIndex = i;
+			*LargestSum = Input[i];
+			runningTotal = Input[i];
+		}
+		else
+		{
+			runningTotal += Input[i];
+		}
+	}
+}
+
+static void CCI_Test_FindLargestRunningSequence()
+{
+	int Input[6] = {2, -8, 3, -2, 4, -10};
+	int LargestSum, StartIndex, EndIndex;
+	FindLargestRunningSequence( Input, 6, &StartIndex, &EndIndex, &LargestSum );
+	char* test1Result = LargestSum == 5 && StartIndex == 2 && EndIndex == 4 ? "Passed" : "Failed";
+	cout << test1Result << " test1 for finding the largest sequence." << endl;
+}
+
 void CCI_Test_AdditionalReview()
 {
 	CCI_Test_HitsInGuess();
+	CCI_Test_FindLargestRunningSequence();
 }
